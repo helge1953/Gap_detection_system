@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analytics Dashboard | The Academic Sentinel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Inter:wght@400;500;600&amp;family=Public+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#cca830",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#b7c8de",
+                        "surface-bright": "#f8f9fa",
+                        "on-surface-variant": "#44474c",
+                        "surface-variant": "#e1e3e4",
+                        "primary": "#041627",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-primary-fixed-variant": "#38485a",
+                        "on-secondary-container": "#745c00",
+                        "primary-fixed": "#d2e4fb",
+                        "background": "#f8f9fa",
+                        "on-primary-container": "#8192a7",
+                        "outline-variant": "#c4c6cd",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9fa",
+                        "secondary-fixed-dim": "#e9c349",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-container": "#4f3e00",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#4f6073",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1d",
+                        "primary-container": "#1a2b3c",
+                        "inverse-primary": "#b7c8de",
+                        "on-secondary-fixed-variant": "#574500",
+                        "surface-container": "#edeeef",
+                        "on-secondary-fixed": "#241a00",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e7e8e9",
+                        "outline": "#74777d",
+                        "surface-dim": "#d9dadb",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-primary-fixed": "#0b1d2d",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "secondary": "#735c00",
+                        "on-background": "#191c1d",
+                        "secondary-container": "#fed65b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Public Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition-surface-container-low {
+            background: linear-gradient(180deg, #ffffff 0%, #f3f4f5 100%);
+        }
+        .scholar-gradient {
+            background: linear-gradient(135deg, #041627 0%, #1a2b3c 100%);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#041627]/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(4,22,39,0.04)]">
+<div class="flex justify-between items-center px-12 py-4 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline text-xl font-bold text-[#041627] dark:text-white">The Academic Sentinel</span>
+<nav class="hidden md:flex gap-6 font-headline text-base tracking-tight">
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#041627] transition-colors" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#041627] transition-colors" href="#">Gap Detection</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#041627] transition-colors" href="#">Knowledge Graph</a>
+<a class="text-[#041627] dark:text-white border-b-2 border-[#735c00] pb-1 font-bold" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Scholar Profile" data-alt="Close-up professional portrait of a senior academic scholar with spectacles in a library setting with soft focus books" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl0FlGfx3F1sWwlrLHdgeAOAhmPXyp5E9XRa2t16LKRTvlNsuC2dyOb8-TeizKyZqf3Ea8MiWPIisYtXCQ9Cf-rDNGa41V2MkrPEIweKz830Tn_akoGOjnwSGOfMJzmO0Vzj1HiMhIFxaE2dme5zbxipS2sgTA8gsuGVeQ_ra8CFViOaXg_6xvX0hgFOQQCoEbF0B84zQTJ7YWz4Gy7XHs-5KMx873HwVKS-lI2qZp5k3EkZV0bfciwezflOOFlXSjF9UbvOw0D3cr"/>
+</div>
+</div>
+</div>
+</header>
+<div class="pt-24 flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#f8f9fa] dark:bg-[#1a2b3c] flex flex-col py-8 z-40">
+<div class="px-8 mb-10">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 scholar-gradient rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm">school</span>
+</div>
+<span class="font-headline text-lg font-semibold text-[#041627] dark:text-[#e9c349]">Faculty Portal</span>
+</div>
+<p class="text-xs text-slate-500 uppercase tracking-widest font-label">Department of Pedagogy</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 pl-8 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-700/30 transition-all font-inter text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg">menu_book</span>
+<span>Curriculum</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 pl-8 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-700/30 transition-all font-inter text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg">query_stats</span>
+<span>Student Progress</span>
+</a>
+<a class="flex items-center gap-4 bg-white dark:bg-[#041627] text-[#735c00] dark:text-[#e9c349] rounded-l-full ml-4 pl-4 py-3 transition-transform duration-200 translate-x-1 font-inter text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg">psychology</span>
+<span>Deep Insights</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 pl-8 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-700/30 transition-all font-inter text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg">library_books</span>
+<span>Resource Library</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 pl-8 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-700/30 transition-all font-inter text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg">group</span>
+<span>Peer Review</span>
+</a>
+</nav>
+<div class="px-6 py-6 border-t border-outline-variant/10">
+<button class="w-full scholar-gradient text-white py-3 rounded-xl font-label text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm">description</span>
+                    Generate Report
+                </button>
+</div>
+<div class="mt-auto space-y-1 mb-8">
+<a class="flex items-center gap-4 text-slate-500 pl-8 py-2 text-xs font-medium hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">help_outline</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-4 text-slate-500 pl-8 py-2 text-xs font-medium hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+<span>Archive</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 w-full p-12 max-w-screen-2xl">
+<!-- Header Section -->
+<div class="mb-12">
+<div class="flex items-center justify-between mb-2">
+<h1 class="font-headline text-4xl font-bold text-primary tracking-tight">Academic Analytics Dashboard</h1>
+<div class="flex items-center gap-3">
+<span class="font-label text-xs font-bold uppercase tracking-widest text-secondary">Data Period: 2011-2024</span>
+<div class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase tracking-tighter">Verified: UNHCR/SCPR</div>
+</div>
+</div>
+<p class="font-headline text-lg text-on-primary-container max-w-3xl italic opacity-80 border-l-2 border-secondary pl-4">
+                    "Analyzing student distribution patterns and educational deserts through the lens of institutional historical data."
+                </p>
+</div>
+<!-- Dashboard Bento Grid -->
+<div class="grid grid-cols-12 gap-8">
+<!-- KPI Row: Summary Highlights -->
+<div class="col-span-12 grid grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_32px_rgba(4,22,39,0.04)] border-l-4 border-primary">
+<p class="font-label text-[10px] uppercase font-bold text-slate-500 mb-1">Total Returnee Students (UNHCR)</p>
+<h2 class="text-3xl font-headline font-bold text-primary">142,850</h2>
+<div class="flex items-center gap-2 mt-2 text-green-600">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="text-xs font-bold">+12% vs last cycle</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_32px_rgba(4,22,39,0.04)] border-l-4 border-secondary">
+<p class="font-label text-[10px] uppercase font-bold text-slate-500 mb-1">Scientific Desertification (SCPR)</p>
+<h2 class="text-3xl font-headline font-bold text-primary">34.2%</h2>
+<div class="flex items-center gap-2 mt-2 text-error">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="text-xs font-bold">Critical Zone Level</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_32px_rgba(4,22,39,0.04)] border-l-4 border-primary-container">
+<p class="font-label text-[10px] uppercase font-bold text-slate-500 mb-1">Avg. Reading Gap (IRC)</p>
+<h2 class="text-3xl font-headline font-bold text-primary">2.4 <span class="text-base font-normal">years</span></h2>
+<div class="flex items-center gap-2 mt-2 text-slate-500">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+<span class="text-xs font-bold">Primary School Baseline</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_32px_rgba(4,22,39,0.04)] border-l-4 border-tertiary-container">
+<p class="font-label text-[10px] uppercase font-bold text-slate-500 mb-1">Institutional Retention</p>
+<h2 class="text-3xl font-headline font-bold text-primary">68%</h2>
+<div class="flex items-center gap-2 mt-2 text-slate-500">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+<span class="text-xs font-bold">MoE Standard Metric</span>
+</div>
+</div>
+</div>
+<!-- Main Analysis Row -->
+<!-- Chart: Historical Student Distribution (MoE) -->
+<div class="col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-[0_8px_32px_rgba(4,22,39,0.04)]">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-headline text-xl font-bold text-primary">Student Distribution (Syrian MoE)</h3>
+<p class="text-xs text-on-primary-container font-label uppercase tracking-widest mt-1">Historical Migration Flux 2015-2023</p>
+</div>
+<div class="flex gap-4">
+<span class="flex items-center gap-2 text-xs font-medium text-slate-600"><div class="w-2 h-2 rounded-full bg-primary"></div> Urban centers</span>
+<span class="flex items-center gap-2 text-xs font-medium text-slate-600"><div class="w-2 h-2 rounded-full bg-secondary"></div> Remote peripheries</span>
+</div>
+</div>
+<!-- Mock Line Chart -->
+<div class="h-64 flex items-end justify-between gap-2 px-2 border-b border-outline-variant/30">
+<div class="w-full flex flex-col items-center">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="bg-primary/10 w-1/2 h-[40%] rounded-t-sm"></div>
+<div class="bg-secondary/20 w-1/2 h-[30%] rounded-t-sm"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 font-label">2015</span>
+</div>
+<div class="w-full flex flex-col items-center">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="bg-primary/20 w-1/2 h-[45%] rounded-t-sm"></div>
+<div class="bg-secondary/30 w-1/2 h-[25%] rounded-t-sm"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 font-label">2017</span>
+</div>
+<div class="w-full flex flex-col items-center">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="bg-primary/40 w-1/2 h-[55%] rounded-t-sm"></div>
+<div class="bg-secondary/50 w-1/2 h-[40%] rounded-t-sm"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 font-label">2019</span>
+</div>
+<div class="w-full flex flex-col items-center">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="bg-primary/60 w-1/2 h-[65%] rounded-t-sm"></div>
+<div class="bg-secondary/70 w-1/2 h-[55%] rounded-t-sm"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 font-label">2021</span>
+</div>
+<div class="w-full flex flex-col items-center">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="bg-primary/80 w-1/2 h-[80%] rounded-t-sm"></div>
+<div class="bg-secondary/90 w-1/2 h-[75%] rounded-t-sm"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 font-label">2023</span>
+</div>
+</div>
+</div>
+<!-- Analysis Sidebar: Scientific Desertification -->
+<div class="col-span-4 bg-primary-container text-white p-8 rounded-xl flex flex-col justify-between overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="font-headline text-xl font-bold mb-2">Scientific Desertification Index</h3>
+<p class="text-sm font-light text-slate-300 mb-6">SCPR Comprehensive Study on talent drain and institutional collapse.</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between border-b border-white/10 pb-2">
+<span class="text-xs uppercase font-label text-slate-400">Faculty Attrition</span>
+<span class="font-headline font-bold text-secondary-fixed-dim">58%</span>
+</div>
+<div class="flex items-center justify-between border-b border-white/10 pb-2">
+<span class="text-xs uppercase font-label text-slate-400">Lab Infrastructure</span>
+<span class="font-headline font-bold text-secondary-fixed-dim">22%</span>
+</div>
+<div class="flex items-center justify-between border-b border-white/10 pb-2">
+<span class="text-xs uppercase font-label text-slate-400">Peer Publication Rate</span>
+<span class="font-headline font-bold text-secondary-fixed-dim">0.04/yr</span>
+</div>
+</div>
+</div>
+<div class="mt-8 relative z-10">
+<div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
+<span class="material-symbols-outlined text-secondary-fixed-dim">lightbulb</span>
+<p class="text-xs leading-relaxed italic">Immediate intervention required in Damascus and Aleppo hubs to prevent total node collapse.</p>
+</div>
+</div>
+<!-- Decorative node background -->
+<div class="absolute -bottom-10 -right-10 opacity-10">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 0, 'wght' 100;">network_node</span>
+</div>
+</div>
+<!-- Reading/Math Gaps (IRC) & Categories -->
+<div class="col-span-6 bg-surface-container-lowest p-8 rounded-xl shadow-[0_8px_32px_rgba(4,22,39,0.04)]">
+<h3 class="font-headline text-xl font-bold text-primary mb-6">Common Math Gap Categories (IRC)</h3>
+<div class="space-y-6">
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label text-sm font-bold text-slate-700">Arabic Numerical Literacy</span>
+<span class="text-xs font-bold text-secondary">72% Gap</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[72%]"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label text-sm font-bold text-slate-700">Geometric Logic &amp; Reasoning</span>
+<span class="text-xs font-bold text-primary">54% Gap</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[54%]"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label text-sm font-bold text-slate-700">Algebraic Fundamentals</span>
+<span class="text-xs font-bold text-primary">48% Gap</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[48%]"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label text-sm font-bold text-slate-700">Statistical Interpretation</span>
+<span class="text-xs font-bold text-slate-400">31% Gap</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-slate-300 w-[31%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Transition Patterns Card -->
+<div class="col-span-6 bg-surface-container-low p-8 rounded-xl">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-xl font-bold text-primary">Transition Patterns</h3>
+<span class="material-symbols-outlined text-primary-container">sync_alt</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white p-4 rounded-lg shadow-sm border border-outline-variant/10">
+<p class="text-[10px] font-label font-bold text-slate-500 uppercase tracking-wider mb-2">Refugee -&gt; Institutional</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-headline font-bold text-primary">4.2</span>
+<span class="text-xs font-medium text-slate-500">months avg.</span>
+</div>
+</div>
+<div class="bg-white p-4 rounded-lg shadow-sm border border-outline-variant/10">
+<p class="text-[10px] font-label font-bold text-slate-500 uppercase tracking-wider mb-2">Rural -&gt; Urban Tech</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-headline font-bold text-primary">18%</span>
+<span class="text-xs font-medium text-slate-500">success rate</span>
+</div>
+</div>
+<div class="bg-white p-4 rounded-lg shadow-sm border border-outline-variant/10">
+<p class="text-[10px] font-label font-bold text-slate-500 uppercase tracking-wider mb-2">Vocational -&gt; Academic</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-headline font-bold text-primary">1,240</span>
+<span class="text-xs font-medium text-slate-500">enrolled p.a.</span>
+</div>
+</div>
+<div class="bg-white p-4 rounded-lg shadow-sm border border-outline-variant/10">
+<p class="text-[10px] font-label font-bold text-slate-500 uppercase tracking-wider mb-2">Arabic -&gt; Multilingual</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-headline font-bold text-secondary">32%</span>
+<span class="text-xs font-medium text-slate-500">adoption rate</span>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/20">
+<div class="flex items-start gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary mt-1.5 shrink-0"></div>
+<p class="text-xs leading-relaxed font-body text-on-surface-variant">
+<strong>Faculty Insight:</strong> Transition patterns suggest high friction in "Scientific Desert" zones, requiring intensive bridge programs for returnee students from UNHCR hubs.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Recent Studies & Data Sources -->
+<div class="col-span-12 bg-white p-0 rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(4,22,39,0.04)]">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-high font-label text-[10px] uppercase font-bold tracking-widest text-slate-500">
+<tr>
+<th class="px-8 py-4">Scientific Study / Dataset</th>
+<th class="px-8 py-4">Source Organization</th>
+<th class="px-8 py-4">Language Coverage</th>
+<th class="px-8 py-4">Last Audit</th>
+<th class="px-8 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="text-sm font-medium text-on-surface">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-5 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">analytics</span>
+                                    Scientific Desertification SCPR-2023
+                                </td>
+<td class="px-8 py-5 text-slate-500">SCPR Syria</td>
+<td class="px-8 py-5">
+<span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold">ARABIC</span>
+<span class="px-2 py-0.5 bg-primary-container text-white rounded text-[10px] font-bold">ENGLISH</span>
+</td>
+<td class="px-8 py-5 text-slate-500">Dec 2023</td>
+<td class="px-8 py-5 text-right">
+<button class="text-primary hover:underline font-bold text-xs">View Insights</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-5 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">groups</span>
+                                    Returnee Demographic Flow
+                                </td>
+<td class="px-8 py-5 text-slate-500">UNHCR</td>
+<td class="px-8 py-5">
+<span class="px-2 py-0.5 bg-primary-container text-white rounded text-[10px] font-bold">ENGLISH</span>
+</td>
+<td class="px-8 py-5 text-slate-500">Feb 2024</td>
+<td class="px-8 py-5 text-right">
+<button class="text-primary hover:underline font-bold text-xs">View Insights</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-8 py-5 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">functions</span>
+                                    Math Performance Gaps IRC-92
+                                </td>
+<td class="px-8 py-5 text-slate-500">IRC International</td>
+<td class="px-8 py-5">
+<span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold">ARABIC</span>
+</td>
+<td class="px-8 py-5 text-slate-500">Jan 2024</td>
+<td class="px-8 py-5 text-right">
+<button class="text-primary hover:underline font-bold text-xs">View Insights</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+<!-- Floating Action Button for Specific Screen Purpose -->
+<button class="fixed bottom-10 right-10 scholar-gradient text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined">add_chart</span>
+</button>
+</body></html>

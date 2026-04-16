@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gap Detection System</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@600;700&family=Public+Sans:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body class="bg-[#f8f9fa] text-[#191c1d]">
+    <nav class="fixed inset-x-0 top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+        <a class="font-serif text-xl font-bold text-[#041627]" href="#home">Gap Detection System</a>
+        <div class="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
+          <a class="nav-link" href="#home">Home</a>
+          <a class="nav-link" href="#gap-detection">Gap Detection</a>
+          <a class="nav-link" href="#knowledge-graph">Knowledge Graph</a>
+          <a class="nav-link" href="#analytics">Analytics</a>
+        </div>
+        <a class="icon-button" href="https://github.com/3mmaruto/Gap_detection_system" title="GitHub repository">
+          <span class="material-symbols-outlined">code</span>
+        </a>
+      </div>
+    </nav>
+
+    <main class="pt-20">
+      <section id="home" class="hero-band">
+        <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <p class="eyebrow">Graduation Project</p>
+            <h1 class="mt-4 font-serif text-5xl font-bold leading-tight text-[#041627] md:text-6xl">
+              Gap Detection System
+            </h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
+              A support tool for teachers working with students who returned to the Syrian curriculum after studying
+              abroad. The system compares the student's studied path with the Syrian target path and highlights likely
+              missing prerequisites.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="primary-button" href="#gap-detection">
+                <span class="material-symbols-outlined">psychology</span>
+                Start Analysis
+              </a>
+              <a class="secondary-button" href="#knowledge-graph">
+                <span class="material-symbols-outlined">hub</span>
+                Graph Outputs
+              </a>
+            </div>
+          </div>
+          <div class="status-panel">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <p class="eyebrow">API Connection</p>
+                <h2 class="mt-2 font-serif text-2xl font-bold text-[#041627]">Backend endpoint</h2>
+              </div>
+              <span class="material-symbols-outlined text-[#735c00]">cloud_sync</span>
+            </div>
+            <label class="mt-6 block text-xs font-bold uppercase tracking-[0.16em] text-slate-500" for="apiBase">
+              API base URL
+            </label>
+            <div class="mt-2 flex gap-2">
+              <input id="apiBase" class="input" value="http://localhost:8080" />
+              <button id="saveApiBase" class="icon-button" title="Save API base URL">
+                <span class="material-symbols-outlined">save</span>
+              </button>
+            </div>
+            <p id="healthStatus" class="mt-4 text-sm text-slate-600">Health check has not run yet.</p>
+            <button id="checkHealth" class="mt-5 w-full secondary-button justify-center">
+              <span class="material-symbols-outlined">monitor_heart</span>
+              Check Backend
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="gap-detection" class="section-band">
+        <div class="mx-auto max-w-7xl px-5 py-14">
+          <div class="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p class="eyebrow">Teacher Workflow</p>
+              <h2 class="mt-2 font-serif text-4xl font-bold text-[#041627]">Gap Detection Analysis</h2>
+            </div>
+            <button id="loadDemo" class="secondary-button">
+              <span class="material-symbols-outlined">auto_fix_high</span>
+              Fill Demo Case
+            </button>
+          </div>
+
+          <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <form id="studentCaseForm" class="panel grid gap-4">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <label class="field-label">
+                  Case ID
+                  <input class="input" name="case_id" placeholder="SC_DEMO_001" />
+                </label>
+                <label class="field-label">
+                  Subject Focus
+                  <input class="input" name="subject_focus" value="Math" />
+                </label>
+                <label class="field-label">
+                  Origin Country
+                  <select class="input" name="origin_country">
+                    <option>Turkey</option>
+                    <option>Syria</option>
+                  </select>
+                </label>
+                <label class="field-label">
+                  Grades Studied Abroad
+                  <input class="input" name="grades_studied_abroad" value="9, 10, 11" />
+                </label>
+                <label class="field-label">
+                  Last Completed Grade Abroad
+                  <input class="input" name="last_completed_grade_abroad" value="11" />
+                </label>
+                <label class="field-label">
+                  Target Country
+                  <select class="input" name="target_country">
+                    <option>Syria</option>
+                    <option>Turkey</option>
+                  </select>
+                </label>
+                <label class="field-label">
+                  Target Grade
+                  <input class="input" name="target_grade" value="12" />
+                </label>
+                <label class="field-label">
+                  Target Stream
+                  <select class="input" name="target_stream">
+                    <option>Scientific</option>
+                    <option>Literary</option>
+                    <option>General</option>
+                  </select>
+                </label>
+                <label class="field-label">
+                  Overall Difficulty
+                  <input class="input" name="overall_difficulty" type="number" min="0" max="10" step="0.5" />
+                </label>
+                <label class="field-label">
+                  Math Difficulty
+                  <input class="input" name="math_difficulty" type="number" min="0" max="10" step="0.5" />
+                </label>
+              </div>
+              <label class="field-label">
+                Notes
+                <textarea class="input min-h-24" name="notes" placeholder="Optional teacher notes"></textarea>
+              </label>
+              <div class="flex flex-wrap gap-3 pt-2">
+                <button class="primary-button" type="submit">
+                  <span class="material-symbols-outlined">analytics</span>
+                  Generate Report
+                </button>
+                <button id="drawStudentGraph" class="secondary-button" type="button">
+                  <span class="material-symbols-outlined">account_tree</span>
+                  Draw Knowledge Graph
+                </button>
+              </div>
+            </form>
+
+            <div class="grid gap-6">
+              <div class="panel">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="eyebrow">Student Support Summary</p>
+                    <h3 class="mt-2 font-serif text-2xl font-bold text-[#041627]">Analysis Result</h3>
+                  </div>
+                  <span id="runState" class="status-pill">Idle</span>
+                </div>
+                <div id="summaryCards" class="mt-5 grid gap-3 sm:grid-cols-2"></div>
+              </div>
+
+              <div class="panel">
+                <p class="eyebrow">Teacher Alert Report</p>
+                <div id="teacherAlertReport" class="mt-4 overflow-x-auto"></div>
+              </div>
+
+              <div class="panel">
+                <p class="eyebrow">Support-First Topics</p>
+                <div id="supportTopics" class="mt-4 grid gap-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="knowledge-graph" class="section-band bg-white">
+        <div class="mx-auto max-w-7xl px-5 py-14">
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p class="eyebrow">Graph Ready Output</p>
+              <h2 class="mt-2 font-serif text-4xl font-bold text-[#041627]">Knowledge Graph Explorer</h2>
+              <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+                Compare the student-specific graph with the original curriculum graph side by side to see missing
+                prerequisites, weak links, and support priorities visually.
+              </p>
+            </div>
+            <button id="loadBothGraphs" class="primary-button" type="button">
+              <span class="material-symbols-outlined">compare_arrows</span>
+              Draw Both Graphs
+            </button>
+          </div>
+
+          <div class="mt-8 graph-comparison-controls">
+            <div class="graph-control-card">
+              <h3 class="font-serif text-xl font-bold text-[#041627]">Student Graph</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">
+                Uses the current student case to show target topics, prerequisites, and coverage status.
+              </p>
+              <button id="loadStudentGraph" class="mt-4 primary-button w-full justify-center" type="button">
+                <span class="material-symbols-outlined">account_tree</span>
+                Draw Student Graph
+              </button>
+            </div>
+
+            <div class="graph-control-card">
+              <h3 class="font-serif text-xl font-bold text-[#041627]">Curriculum Graph</h3>
+              <div class="mt-4 grid gap-4 sm:grid-cols-4">
+                <label class="field-label">
+                  Country
+                  <input id="graphCountry" class="input" value="Syria" />
+                </label>
+                <label class="field-label">
+                  Grade
+                  <input id="graphGrade" class="input" value="12" />
+                </label>
+                <label class="field-label">
+                  Stream
+                  <input id="graphStream" class="input" value="Scientific" />
+                </label>
+                <label class="field-label">
+                  Subject
+                  <input id="graphSubject" class="input" value="Math" />
+                </label>
+              </div>
+              <button id="loadCurriculumGraph" class="mt-4 primary-button w-full justify-center" type="button">
+                <span class="material-symbols-outlined">hub</span>
+                Draw Curriculum Graph
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-6 graph-legend-row">
+            <p class="eyebrow">Legend</p>
+            <div id="graphLegend" class="graph-legend-inline"></div>
+            <label class="graph-toggle" title="Show or hide node labels">
+              <input id="toggleLabels" type="checkbox" checked />
+              <span>Labels</span>
+            </label>
+          </div>
+
+          <div class="mt-6 graph-comparison-grid">
+            <section class="graph-stage-panel">
+              <div class="graph-toolbar">
+                <div>
+                  <h3 class="font-serif text-2xl font-bold text-[#041627]">Student Graph</h3>
+                  <p id="studentGraphSubtitle" class="text-sm text-slate-600">
+                    Student-specific target topics, prerequisites, and missing-topic statuses.
+                  </p>
+                </div>
+                <div class="graph-actions">
+                  <span id="studentGraphStats" class="status-pill">No graph loaded</span>
+                  <button id="fitStudentGraph" class="icon-button" title="Fit student graph">
+                    <span class="material-symbols-outlined">fit_screen</span>
+                  </button>
+                  <button id="rerunStudentLayout" class="icon-button" title="Restart student graph layout">
+                    <span class="material-symbols-outlined">auto_awesome_motion</span>
+                  </button>
+                </div>
+              </div>
+              <div id="studentGraphPreview" class="graph-preview mt-5">
+                <div class="graph-empty-state">
+                  <span class="material-symbols-outlined">person_search</span>
+                  <strong>Student graph</strong>
+                  <p>Draw this graph after entering or loading a student case.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="graph-stage-panel">
+              <div class="graph-toolbar">
+                <div>
+                  <h3 class="font-serif text-2xl font-bold text-[#041627]">Curriculum Graph</h3>
+                  <p id="curriculumGraphSubtitle" class="text-sm text-slate-600">
+                    Original curriculum slice for visual comparison.
+                  </p>
+                </div>
+                <div class="graph-actions">
+                  <span id="curriculumGraphStats" class="status-pill">No graph loaded</span>
+                  <button id="fitCurriculumGraph" class="icon-button" title="Fit curriculum graph">
+                    <span class="material-symbols-outlined">fit_screen</span>
+                  </button>
+                  <button id="rerunCurriculumLayout" class="icon-button" title="Restart curriculum graph layout">
+                    <span class="material-symbols-outlined">auto_awesome_motion</span>
+                  </button>
+                </div>
+              </div>
+              <div id="curriculumGraphPreview" class="graph-preview mt-5">
+                <div class="graph-empty-state">
+                  <span class="material-symbols-outlined">menu_book</span>
+                  <strong>Curriculum graph</strong>
+                  <p>Draw the original curriculum graph to compare it with the student graph.</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="graph-detail-panel mt-6">
+            <p class="eyebrow">Selected Item</p>
+            <div id="nodeDetails" class="mt-4">
+              <h3 class="font-serif text-2xl font-bold text-[#041627]">Nothing selected</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">
+                Click a node or edge in either graph to inspect its educational meaning.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="analytics" class="section-band">
+        <div class="mx-auto max-w-7xl px-5 py-14">
+          <p class="eyebrow">Static for This Phase</p>
+          <h2 class="mt-2 font-serif text-4xl font-bold text-[#041627]">Analytics Dashboard</h2>
+          <div class="mt-8 grid gap-4 md:grid-cols-4">
+            <div class="metric-card"><span>Cases reviewed</span><strong>--</strong></div>
+            <div class="metric-card"><span>Likely gaps</span><strong>--</strong></div>
+            <div class="metric-card"><span>Support topics</span><strong>--</strong></div>
+            <div class="metric-card"><span>Graph nodes</span><strong>--</strong></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

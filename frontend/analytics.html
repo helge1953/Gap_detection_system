@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مركز الدراسات والإحصائيات - Gap Detection System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800&display=swap");
+
+      :root {
+        --ink: #0f172a;
+        --muted: #475569;
+        --line: #e2e8f0;
+        --surface: #ffffff;
+        --brand: #041627;
+        --gold: #735c00;
+      }
+
+      body {
+        font-family: "Noto Sans Arabic", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(210, 228, 251, 0.75), transparent 28rem),
+          linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+        color: var(--ink);
+      }
+
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+
+      .top-nav {
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(16px);
+      }
+
+      .nav-link {
+        color: #475569;
+        font-size: 0.9rem;
+        font-weight: 700;
+        transition: color 0.15s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.is-active {
+        color: var(--brand);
+      }
+
+      .hero-panel {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 60%, #fff7d6 100%);
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+      }
+
+      .section-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+        height: 100%;
+        padding: 2rem;
+      }
+
+      .chart-container {
+        height: 320px;
+        margin-bottom: 1.5rem;
+        position: relative;
+        width: 100%;
+      }
+
+      .reference-link:hover {
+        text-decoration: underline;
+      }
+
+      .source-badge {
+        border-radius: 999px;
+        display: inline-flex;
+        font-size: 0.75rem;
+        font-weight: 800;
+        padding: 0.22rem 0.7rem;
+      }
+
+      .context-card {
+        background: #041627;
+        border-radius: 1rem;
+        color: white;
+        overflow: hidden;
+        padding: 1.5rem;
+        position: relative;
+      }
+
+      .context-card::after {
+        background: rgba(254, 214, 91, 0.16);
+        border-radius: 999px;
+        content: "";
+        height: 12rem;
+        left: -4rem;
+        position: absolute;
+        top: -5rem;
+        width: 12rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="top-nav sticky top-0 z-40">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-8">
+        <a class="flex items-center gap-2 text-lg font-extrabold text-[#041627]" href="./index.html#home">
+          <span class="material-symbols-outlined text-[#735c00]">school</span>
+          Gap Detection System
+        </a>
+        <div class="hidden items-center gap-6 md:flex">
+          <a class="nav-link" href="./index.html#home">Home</a>
+          <a class="nav-link" href="./index.html#gap-detection">Gap Detection</a>
+          <a class="nav-link" href="./index.html#knowledge-graph">Knowledge Graph</a>
+          <a class="nav-link is-active" href="./analytics.html">Analytics</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="px-4 py-8 md:px-8">
+      <header class="hero-panel mx-auto mb-10 max-w-7xl p-6 md:p-8">
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.42fr] lg:items-center">
+          <div>
+            <p class="mb-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[#735c00]">
+              مركز الدراسات والإحصائيات
+            </p>
+            <h1 class="mb-3 text-3xl font-extrabold text-slate-900 md:text-4xl">
+              الدراسات والإحصائيات المرجعية
+            </h1>
+            <p class="max-w-4xl text-sm leading-7 text-slate-600 md:text-base">
+              تجميع للبيانات والتقارير الصادرة عن المنظمات الدولية والجهات الرسمية المتعلقة بالواقع التعليمي
+              السوري (2011 - 2025). هذه الصفحة ليست جزءاً مباشراً من تحليل حالة الطالب، بل هي الخلفية البحثية
+              التي توضّح الحاجة إلى أداة تساعد على قياس وتحديد وتقييم الفجوة المعرفية عند الطلاب العائدين.
+            </p>
+          </div>
+          <div class="context-card">
+            <h2 class="relative z-10 mb-3 text-xl font-extrabold text-[#fed65b]">لماذا هذه الصفحة؟</h2>
+            <p class="relative z-10 text-sm leading-7 text-slate-200">
+              تم جمع هذه المؤشرات في مكان واحد لتسهيل عرض الدافع البحثي أثناء العرض الحي للمشروع، وربط مشكلة
+              الفجوات التعليمية بالحاجة العملية لنظام Gap Detection System.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-2">
+        <section class="section-card">
+          <div class="mb-4 flex items-center">
+            <span class="source-badge ml-2 bg-blue-100 text-blue-800">UNHCR</span>
+            <h2 class="text-xl font-extrabold text-slate-800">إحصائيات تتبع العودة الطوعية</h2>
+          </div>
+          <p class="mb-6 text-sm leading-7 text-slate-600">
+            توضح هذه البيانات أعداد اللاجئين السوريين (فئة الطلاب) الذين عادوا من دول الجوار حتى منتصف عام
+            2025، مما يستدعي تقييماً للمهارات المكتسبة خارج المنهج السوري.
+          </p>
+          <div class="chart-container">
+            <canvas id="returneesChart"></canvas>
+          </div>
+          <div class="mt-4 border-t pt-4 text-xs">
+            <span class="font-bold text-slate-700">المصدر:</span>
+            <a href="#" class="reference-link text-blue-600">
+              المفوضية السامية للأمم المتحدة لشؤون اللاجئين - بوابة البيانات العملياتية
+            </a>
+          </div>
+        </section>
+
+        <section class="section-card">
+          <div class="mb-4 flex items-center">
+            <span class="source-badge ml-2 bg-teal-100 text-teal-800">IRC</span>
+            <h2 class="text-xl font-extrabold text-slate-800">دراسة تقييم مستوى القراءة والحساب</h2>
+          </div>
+          <p class="mb-6 text-sm leading-7 text-slate-600">
+            نتائج اختبارات تحديد المستوى التي أجرتها لجنة الإنقاذ الدولية، والتي تقيس الفجوة بين العمر الزمني
+            للطالب ومستواه المعرفي الفعلي.
+          </p>
+          <div class="chart-container">
+            <canvas id="ircGapChart"></canvas>
+          </div>
+          <div class="mt-4 border-t pt-4 text-xs">
+            <span class="font-bold text-slate-700">المصدر:</span>
+            <a href="#" class="reference-link text-blue-600">لجنة الإنقاذ الدولية (IRC) - تقارير التعليم في الأزمات</a>
+          </div>
+        </section>
+
+        <section class="section-card md:col-span-2">
+          <div class="mb-4 flex items-center">
+            <span class="source-badge ml-2 bg-orange-100 text-orange-800">وزارة التربية</span>
+            <h2 class="text-xl font-extrabold text-slate-800">توزع الطلاب بين الفرعين العلمي والأدبي (تاريخي)</h2>
+          </div>
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div class="lg:col-span-2">
+              <p class="mb-4 text-sm leading-7 text-slate-600">
+                يظهر الرسم البياني التحول في التوجهات الدراسية من عام 1999 وصولاً لآخر إحصائية رسمية شاملة في
+                2016. نلاحظ نمواً مضطرداً في الفرع الأدبي بالتزامن مع سنوات الصراع.
+              </p>
+              <div class="chart-container" style="height: 350px">
+                <canvas id="educationTrackChart"></canvas>
+              </div>
+            </div>
+            <div class="flex flex-col justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6">
+              <h3 class="mb-2 font-extrabold text-red-600">تنويه إحصائي هام:</h3>
+              <p class="mb-4 text-xs leading-7 text-slate-600">
+                آخر إحصائية رسمية مركزية متاحة لوزارة التربية السورية تغطي كافة المحافظات بدقة هي لعام
+                <span class="font-bold">2016</span>. بعد هذا التاريخ، واجهت عملية "تتبع المسار" (Tracking)
+                صعوبات بالغة نتيجة:
+              </p>
+              <ul class="list-inside list-disc space-y-2 text-xs leading-6 text-slate-600">
+                <li>تعدد الجهات المسيطرة والمناهج التعليمية.</li>
+                <li>نزوح الكوادر الإدارية المختصة بالإحصاء.</li>
+                <li>صعوبة الوصول للمدارس في المناطق غير المستقرة.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-4 border-t pt-4 text-xs">
+            <span class="font-bold text-slate-700">المصدر:</span>
+            <a href="#" class="reference-link text-blue-600">
+              المكتب المركزي للإحصاء - المجموعة الإحصائية السنوية (إصدارات 2000-2017)
+            </a>
+          </div>
+        </section>
+
+        <section class="section-card md:col-span-2">
+          <div class="mb-4 flex items-center">
+            <span class="source-badge ml-2 bg-purple-100 text-purple-800">SCPR</span>
+            <h2 class="text-xl font-extrabold text-slate-800">دراسة "التصحر العلمي" في سوريا</h2>
+          </div>
+          <div class="flex flex-col gap-8 md:flex-row">
+            <div class="md:w-1/2">
+              <p class="text-sm leading-8 text-slate-600">
+                يُعرف المركز السوري لبحوث السياسات ظاهرة "التصحر العلمي" بأنها التآكل الهيكلي في تعليم العلوم
+                الأساسية (الرياضيات، الفيزياء، الكيمياء). الدراسة توضح أن 72% من الانقطاع عن الفرع العلمي يعود
+                لأسباب لوجستية وفقدان التجهيزات المخبرية، وليس لرغبة الطلاب الشخصية.
+              </p>
+              <div class="mt-6 space-y-4">
+                <div class="flex items-center">
+                  <div class="ml-4 flex h-12 w-12 items-center justify-center rounded-lg bg-purple-50 font-extrabold text-purple-600">
+                    65%
+                  </div>
+                  <div class="text-xs leading-6 text-slate-500">
+                    نقص في المدرسين المختصين بالمواد العلمية في مناطق النزوح.
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="ml-4 flex h-12 w-12 items-center justify-center rounded-lg bg-purple-50 font-extrabold text-purple-600">
+                    80%
+                  </div>
+                  <div class="text-xs leading-6 text-slate-500">
+                    من المدارس المتضررة تحولت من المنهج العلمي الشامل إلى الأدبي لسهولة التدريس التقليدي.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="relative overflow-hidden rounded-xl bg-slate-900 p-6 text-white md:w-1/2">
+              <h4 class="mb-4 font-extrabold text-purple-400">خلاصة المرجع البحثي:</h4>
+              <p class="text-sm italic leading-8 text-slate-300">
+                "إن غياب المخابر العلمية في المدارس المستحدثة بالمخيمات ومناطق العودة أدى قسراً إلى توجيه الطلاب
+                نحو العلوم الإنسانية، مما خلق فجوة تقنية ستظهر آثارها في سوق العمل المستقبلي."
+              </p>
+              <div class="mt-6 border-t border-slate-700 pt-4 text-xs text-slate-500">
+                المركز السوري لبحوث السياسات (SCPR) - تقرير "الجذور المفقودة للتعليم"
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const wrapText = (text, limit = 16) => {
+        if (text.length <= limit) return text;
+        const words = text.split(" ");
+        const lines = [];
+        let line = "";
+        words.forEach((word) => {
+          if ((line + word).length > limit) {
+            lines.push(line.trim());
+            line = word + " ";
+          } else {
+            line += word + " ";
+          }
+        });
+        lines.push(line.trim());
+        return lines;
+      };
+
+      const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { font: { family: "Noto Sans Arabic" } } },
+          tooltip: {
+            callbacks: {
+              title: (items) => {
+                const label = items[0].chart.data.labels[items[0].dataIndex];
+                return Array.isArray(label) ? label.join(" ") : label;
+              },
+            },
+          },
+        },
+        scales: {
+          y: { ticks: { font: { family: "Noto Sans Arabic" } } },
+          x: { ticks: { font: { family: "Noto Sans Arabic" } } },
+        },
+      };
+
+      new Chart(document.getElementById("returneesChart"), {
+        type: "bar",
+        data: {
+          labels: ["2012-15", "2016-18", "2019-21", "2022-24", "يونيو 2025"].map((label) => wrapText(label)),
+          datasets: [
+            {
+              label: "أعداد الطلاب العائدين (تقديري)",
+              data: [5000, 15000, 32000, 48000, 25000],
+              backgroundColor: "#3b82f6",
+            },
+          ],
+        },
+        options: commonOptions,
+      });
+
+      new Chart(document.getElementById("ircGapChart"), {
+        type: "pie",
+        data: {
+          labels: ["فجوة < سنة", "فجوة 1-2 سنة", "فجوة > 3 سنوات", "طلاب بلا انقطاع"].map((label) =>
+            wrapText(label),
+          ),
+          datasets: [
+            {
+              data: [15, 35, 40, 10],
+              backgroundColor: ["#2dd4bf", "#f59e0b", "#ef4444", "#10b981"],
+            },
+          ],
+        },
+        options: commonOptions,
+      });
+
+      new Chart(document.getElementById("educationTrackChart"), {
+        type: "line",
+        data: {
+          labels: ["1999", "2005", "2010", "2012", "2014", "2016"],
+          datasets: [
+            {
+              label: "طلاب الفرع العلمي %",
+              data: [52, 55, 51, 38, 28, 22],
+              borderColor: "#2563eb",
+              tension: 0.3,
+              fill: false,
+            },
+            {
+              label: "طلاب الفرع الأدبي %",
+              data: [48, 45, 49, 62, 72, 78],
+              borderColor: "#f97316",
+              tension: 0.3,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          ...commonOptions,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { callback: (value) => value + "%", font: { family: "Noto Sans Arabic" } },
+            },
+            x: { ticks: { font: { family: "Noto Sans Arabic" } } },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

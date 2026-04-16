@@ -38,6 +38,8 @@ The frontend is a static GitHub Pages-ready demo shell. It preserves the visual 
 
 The Knowledge Graph section uses Cytoscape.js in the browser to render interactive node-edge graphs from the backend's graph-ready JSON. It supports student-specific graphs and curriculum-slice graphs without requiring Neo4j infrastructure at this phase.
 
+The Analytics link opens `frontend/analytics.html`, a standalone Arabic reference page for studies, statistics, and infographics that motivate the need for curriculum gap detection.
+
 Open locally:
 
 ```powershell
